@@ -1,0 +1,12 @@
+2
+recommend
+ChinaDoll_E,22.9306750298,6
+fire-by-night-over-oceans-2006,21.0686578751,8
+earned-it,18.3968379498,6
+are-you-thirsty-from-sweet-creep_G,8.63364315033,3
+Book_Bb,24.0258431435,6
+cherry-blossom_E,19.2609641552,8
+butterfly-2013_D,19.958493948,9
+beautiful-souls-2013_Em,30.259552002,9
+cold-afternoon_A,36.6459290981,4
+chameleon_Gm,33.7542278767,7

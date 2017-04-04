@@ -1,0 +1,12 @@
+8
+recommend
+So-alone,101.778756857,6
+Made-my-bed,37.8118069172,3
+Out-here,90.8180961609,8
+Mortal-tears-2013,80.6053900719,4
+Chihuahua-rescue-live_C,88.3764679432,5
+Flower-2013,103.453986168,7
+10-million-years,116.473706961,6
+Moving-on,113.800317049,8
+New-york-apartment,120.607600927,7
+Winter-is-over-2012,101.811408043,5

@@ -1,0 +1,12 @@
+1
+distance
+LetItBe_C,105.190187931,7
+breathe_G,63.2405920029,3
+are-you-lightning_F#,35.6681408882,5
+born-again-home-2015_Bm,75.5169579983,7
+Angel_Am,42.9720239639,4
+fire-by-night-over-oceans-2006,57.2045161724,6
+chihuahua-rescue-live_C,40.3825500011,4
+stranger,130.822707891,7
+cherry-blossom_E,43.388808012,4
+believe-youre-mine_F#m,22.581797123,3

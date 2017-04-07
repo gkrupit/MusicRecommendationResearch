@@ -33,10 +33,15 @@ def main():
     #ExperimentData.RatingVsTimeSuccessive(results)
     #ExperimentData.RatingVsTimeByUser(results)
     #ExperimentData.RatingVsTime(results)
-    ExperimentData.RatingVsTimeSuccessiveBubble(results)
+    #ExperimentData.RatingVsTimeSuccessiveBubble(results)
+    #ExperimentData.RatingVsTimeSuccessiveScatter(results)
 
     #song_counts = ExperimentData.CountSongs(results)
-    #ExperimentData.AverageRatingPerSong(results, song_counts)
+
+    ExperimentData.AverageRatingPerSong(results['random'] + results['recommend'], 'All')
+    ExperimentData.AverageRatingPerSong(results['random'], 'Random')
+    ExperimentData.AverageRatingPerSong(results['recommend'], 'kALE')
+
 
     #ExperimentData.PlotAll(results)
 

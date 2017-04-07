@@ -64,7 +64,7 @@ class MP3Player:
         self.exit_button = Button(self.app, text="Exit Player", command=self.Exit)
         self.next_button.pack()
         self.exit_button.pack()
-        self.root.mainloop()
+        #self.root.mainloop()
 
     def DetermineExperimentNumber(self):
         pattern = re.compile('e(\d+).txt')
@@ -271,7 +271,7 @@ class MP3Player:
             self.Exit()
 
 
-
+        '''
         print '----------------------------------------'
         print '   Previous song:', self.prev_song
         print '   Song chosen using recommendation algorithm:', next_song
@@ -282,6 +282,7 @@ class MP3Player:
         print '   Next song starting position:', next_song_index
         print '   Actual Index in list:', order.index(next_song)
         print '----------------------------------------'
+        '''
 
         return next_song
 

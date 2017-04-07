@@ -38,6 +38,66 @@ class ExperimentData:
     def GetPercentListened(self):
         return self.percentage_listened
 
+    @staticmethod
+    def AverageSongRating(songname, experiments):
+        pass
+
+    @staticmethod
+    def AverageRatingPerSongExperiments(experiments, song_counts):
+        pass
+
+
+    @staticmethod
+    def AverageRatingPerSong(experiments, which):
+        print which
+        song_counts = ExperimentData.CountSongs(experiments)
+        rating_per_song = { song : 0 for song in song_counts }
+        for e in experiments:
+            for song,rating in zip(e.songs_played, e.ratings):
+                rating_per_song[song] += rating
+
+        avg_rating_per_song = dict()
+
+        for song in rating_per_song:
+            avg_rating_per_song[song] = 1. * rating_per_song[song] / song_counts[song]
+
+        #for song,count in sorted(song_counts.items(), key=lambda pair: pair[1]):
+        #    print '%s: %d, %.2f' % (song,count,avg_rating_per_song[song])
+        avg_times_played = np.mean(song_counts.values())
+        print '%s: %f' % (which, avg_times_played)
+
+
+        song_count_list = sorted(song_counts.items(), key=lambda pair: pair[1], reverse=True)
+        fig = plt.figure()
+        names,counts = zip(*song_count_list)
+        ratings = [ avg_rating_per_song[song] for song in names ]
+
+        pylab.rcParams['font.size'] = 8
+        fig = plt.figure()
+        ax = plt.subplot(111)
+        color_map = plt.get_cmap('Greens')
+
+        colors = [ color_map(rating/10) for rating in ratings ]
+        #print ratings
+        #print colors
+        width=0.8
+        bars = ax.bar(range(len(names)), counts, color=colors, width=width)
+        ax.set_xticks(np.arange(len(names)) + width/2)
+        ax.set_xticklabels(names, rotation=90)
+        fig.autofmt_xdate()
+
+        #for song,bar in zip(names, )
+        pylab.rcParams['font.size'] = 10
+        ax.set_xlabel('Song Name')
+        ax.set_ylabel('Number of Times Played over ' + which + ' Experiments')
+        plt.title('Number of Plays Per Song, Average Rating per Song')
+        plt.show()
+        pylab.rcParams['font.size'] = 12
+
+
+
+
+
     def RemoveBadSongs(self):
         bad_songs = ['LetItBe_C']
         for song in bad_songs:
@@ -54,9 +114,7 @@ class ExperimentData:
 
 
     @staticmethod
-    def CountSongs(results):
-
-        experiments = results['random'] + results['recommend']
+    def CountSongs(experiments):
         songs = []
         for e in experiments:
             songs += e.songs_played
@@ -312,10 +370,60 @@ class ExperimentData:
 
         plt.axis([-10,10,0,200])
         plt.xlabel('Change in Rating')
-        plt.ylabel('Change in Percent Listened To')
-        plt.title('Rating vs Percent of Song Listened To')
+        plt.ylabel('Change in Percent Listened')
+        plt.title('Trend in Rating vs. Time Listened')
         plt.show()
 
+
+    @staticmethod
+    def RatingVsTimeSuccessiveScatter(results):
+        experiments = results['random'] + results['recommend']
+        experiments = [ e for e in experiments if e.GetExperimentNumber() != 19 and e.GetExperimentNumber() != 20 ]
+        rating_vs_time = []
+        for e in experiments:
+            ratings = e.ratings
+            times = e.percentage_listened
+            successive_ratings = zip(ratings, ratings[1:])
+            successive_times = zip(times, times[1:])
+            rating_vs_time += zip(successive_ratings,successive_times)
+
+
+        color = []
+        area = []
+        X_trend = []
+        X_notrend = []
+        y_trend = []
+        y_notrend = []
+        print rating_vs_time
+        for i,((r1,r2),(t1,t2)) in enumerate(rating_vs_time):
+            if (r2 >= r1 and t2 >= t1) or (r2 <= r1 and t2 <= t1):
+                X_trend.append(r2 - r1)
+                y_trend.append(t2 - t1)
+            else:
+                X_notrend.append(r2 - r1)
+                y_notrend.append(t2 - t1)
+
+        # making the scatter plot
+        plt.plot(X_trend, y_trend,'go')
+        plt.plot(X_notrend, y_notrend,'rx')
+
+        X = X_trend + X_notrend
+        y = y_trend + y_notrend
+        print len(X),len(y)
+
+        m, b = np.polyfit(X, y, 1)
+
+        print len(X)
+        Y = map(lambda x: m * x + b, X)
+        print len(X), len(Y)
+        plt.plot(X,Y,'-')
+        #plt.sct.set_alpha(0.75)
+
+        plt.axis([-10,10,-100,100])
+        plt.xlabel('Successive Change in Rating')
+        plt.ylabel('Successive Change in Percent Listened To')
+        plt.title('Change in Rating vs Change in Percent of Song Listened To')
+        plt.show()
 
 
     @staticmethod
